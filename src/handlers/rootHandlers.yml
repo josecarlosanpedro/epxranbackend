@@ -1,0 +1,4 @@
+- ${file(./src/handlers/administrator/index.yml)}
+- ${file(./src/handlers/shop/index.yml)}
+- ${file(./src/handlers/user/index.yml)}
+- ${file(./src/handlers/auth/index.yml)}

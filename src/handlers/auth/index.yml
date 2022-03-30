@@ -1,0 +1,7 @@
+user-login:
+  handler: src/handlers/auth/login/index.handler
+  events:
+    - http:
+        path: v1/auth/login
+        method: POST
+        cors: true

@@ -1,0 +1,61 @@
+# NOTE: update this with your service name
+service: epx-be-sls
+
+plugins:
+  - serverless-plugin-split-stacks
+  - serverless-webpack
+  # - serverless-dotenv-plugin
+  - serverless-offline
+  - serverless-offline-scheduler
+
+provider:
+  profile: epxbossran-dev
+  name: aws
+  runtime: nodejs12.x
+  region: ap-southeast-1
+  stage: dev
+  versionFunctions: false
+
+  environment:
+    # self: ${self:custom.defaultStage}
+    # RDS_HOST: ${self:custom.ssm.RDS_HOST}
+    # RDS_DATABASE: ${self:custom.ssm.RDS_DATABASE}
+    # RDS_USERNAME: ${self:custom.ssm.RDS_USERNAME}
+    # RDS_PASSWORD: ${self:custom.ssm.RDS_PASSWORD}
+    TZ: Asia/Singapore
+      
+
+functions: ${file(src/handlers/rootHandlers.yml)}
+custom:
+  splitStacks:
+    nestedStackCount: 30 # Controls the number of created nested stacks
+    perFunction: false
+    perType: false
+    perGroupFunction: true
+  defaultStage: dev
+  currentStage: ${opt:stage, self:custom.defaultStage}
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+  # serverless-offline:
+  #   httpPort: 5000
+  dotenv:
+    include:
+      # - RDS_HOST
+      # - RDS_DATABASE
+      # - RDS_USERNAME
+      # - RDS_PASSWORD
+      # - TZ
+
+package:
+  include:
+    - mysql2
+  exclude:
+    - "tests/**"
+    - "tests-integration/**"
+    - ".idea/**"
+    - "serverless-configs/**"
+    - "envs/**"
+    - "support/**"
+    - "node_modules/.cache/**"
+    - "scripts/**"

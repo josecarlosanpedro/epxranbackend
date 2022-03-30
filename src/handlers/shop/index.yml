@@ -1,0 +1,7 @@
+shop-get-item:
+  handler: src/handlers/shop/get-items/index.handler
+  events:
+    - http:
+        path: v1/shop/get-items
+        method: GET
+        cors: true

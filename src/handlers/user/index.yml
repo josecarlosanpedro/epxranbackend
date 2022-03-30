@@ -1,0 +1,7 @@
+user-search:
+  handler: src/handlers/user/search/index.handler
+  events:
+    - http:
+        path: v1/user/search
+        method: POST
+        cors: true

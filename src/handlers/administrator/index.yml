@@ -1,0 +1,21 @@
+admin-send-item:
+  handler: src/handlers/administrator/send-item/index.handler
+  events:
+    - http:
+        path: v1/admin/send-item
+        method: POST
+        cors: true
+admin-add-userpoint:
+  handler: src/handlers/administrator/add-userpoint/index.handler
+  events:
+    - http:
+        path: v1/admin/adduserpoint
+        method: POST
+        cors: true
+admin-add-all-userpoint:
+  handler: src/handlers/administrator/add-all-userpoint/index.handler
+  events:
+    - http:
+        path: v1/admin/addalluserpoint
+        method: POST
+        cors: true
