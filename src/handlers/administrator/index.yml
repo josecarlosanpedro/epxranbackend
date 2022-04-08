@@ -19,3 +19,10 @@ admin-add-all-userpoint:
         path: v1/admin/addalluserpoint
         method: POST
         cors: true
+admin-add-ol-userpoint:
+  handler: src/handlers/administrator/add-ol-userpoint/index.handler
+  events:
+    - http:
+        path: v1/admin/addoluserpoint
+        method: POST
+        cors: true
