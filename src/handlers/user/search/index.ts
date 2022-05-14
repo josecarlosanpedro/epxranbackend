@@ -13,7 +13,7 @@ export const handler = async (event) => {
     console.log(body)
     const sqlConfig = {
       user: 'sa',
-      password: '-=3PXepx-b055r4n=-',
+      password: 'passwordepxsql',
       server: 'localhost', 
       // database: "RanGame1",
       "dialect":"mssql",

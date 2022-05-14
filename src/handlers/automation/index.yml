@@ -1,0 +1,45 @@
+automation-reborn-filter:
+  handler: src/handlers/automation/reborn_filter/index.handler
+  events:
+    - http:
+        path: v1/reborn_filter
+        method: GET
+        cors: true
+    # - schedule:    
+    #     rate: rate(1 minute)
+automation-cap-reward:
+  handler: src/handlers/automation/cap_reward/index.handler
+  events:
+    - http:
+        path: v1/cap_reward
+        method: GET
+        cors: true
+automation-stat-manipulation:
+  handler: src/handlers/automation/stat_manipulation/index.handler
+  events:
+    - http:
+        path: v1/stat_manipulation
+        method: GET
+        cors: true
+automation-cw-bet:
+  handler: src/handlers/automation/cw_bet/index.handler
+  events:
+    - http:
+        path: v1/cw_bet
+        method: GET
+        cors: true
+automation-cw-refund:
+  handler: src/handlers/automation/cw_bet_refund/index.handler
+  events:
+    - http:
+        path: v1/cw_bet_refund/{region}
+        method: GET
+        cors: true
+
+automation-cw-winner:
+  handler: src/handlers/automation/cw_winner/index.handler
+  events:
+    - http:
+        path: v1/cw_winner
+        method: GET
+        cors: true

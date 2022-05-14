@@ -6,9 +6,11 @@ import {
     handleUnprocessable,
     handleSuccess,
 } from "../../../utils/responses";
+import uniqBy from "lodash/uniqBy"
 import sql from "mssql"
 
 export const handler = async (event) => {
+    console.log(event)
     const body = JSON.parse(event.body)
     console.log(body)
     const sqlConfig = {
@@ -25,14 +27,24 @@ export const handler = async (event) => {
       dialectOptions: {
           instanceName: "MSSQLSERVER"
       },
+    
     }
     await sql.connect(sqlConfig)
-   
     let querys = `SELECT *
-    FROM [RanShop].[dbo].[ShopItemMap] `
+    FROM [RanUser].[dbo].[EPointLogs] where type = 'donate' `
     console.log("querys", querys)
-    const result = await sql.query(`${querys}`)
+    let users = await sql.query(`${querys}`)
+    users = users.recordsets
+    let q = []
+    await Promise.all(await users[0].map(async item => {
+      let queryupdate2 = `UPDATE [RanUser].[dbo].[UserInfo] set UserVIP = 1 where UserName = '${item.user_id}' `
+      const userupdate2 = await sql.query(`${queryupdate2}`)
+      q.push(userupdate2)
+    }))
+    // const usersuniq = await uniqBy(users.recordsets, "user_id");
     return handleSuccess({
-      result
+      // usersuniq
+      q,
+      users
     })
 }

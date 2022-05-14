@@ -26,3 +26,18 @@ admin-add-ol-userpoint:
         path: v1/admin/addoluserpoint
         method: POST
         cors: true
+admin-update-all-donator:
+  handler: src/handlers/administrator/get-all-donator/index.handler
+  events:
+    - http:
+        path: v1/admin/donator
+        method: GET
+        cors: true
+admin-add-coupon-for-all:
+  handler: src/handlers/administrator/add-coupon-for-all/index.handler
+  events:
+    - http:
+        path: v1/admin/couponforall
+        method: POST
+        cors: true
+  

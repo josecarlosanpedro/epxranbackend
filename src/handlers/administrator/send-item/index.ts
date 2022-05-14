@@ -13,7 +13,7 @@ export const handler = async (event) => {
     console.log(body)
     const sqlConfig = {
       user: 'sa',
-      password: '-=3PXepx-b055r4n=-',
+      password: 'passwordepxsql',
       server: 'localhost', 
       // database: "RanGame1",
       "dialect":"mssql",
@@ -28,24 +28,29 @@ export const handler = async (event) => {
     
     }
     await sql.connect(sqlConfig)
-    let where = `WHERE UserID = '${body.receiver}'`
-    if(body.receiver === "ALL") {
-      where = ""
+    let result = []
+    for (let i = 1; i <= Number(body.quantity); i++) {
+      let where = `WHERE UserID = '${body.receiver}'`
+      if(body.receiver === "ALL") {
+        where = ""
+      }
+      
+      if(body.receiver === "ONLINE") {
+        where = "WHERE UserLoginState = 1"
+      }
+      
+      if(body.receiver === "OFFLINE") {
+        where = "WHERE UserLoginState = 0"
+      }
+      let querys = `INSERT INTO RanShop.dbo.ShopPurchase(UserUID,ProductNum)
+      SELECT UserName, ${body.item}
+      FROM RanUser.dbo.UserInfo
+      ${where}`
+      console.log("querys", querys)
+      const res = await sql.query(`${querys}`)
+      result.push(res)
     }
-    
-    if(body.receiver === "ONLINE") {
-      where = "WHERE UserLoginState = 1"
-    }
-    
-    if(body.receiver === "OFFLINE") {
-      where = "WHERE UserLoginState = 0"
-    }
-    let querys = `INSERT INTO RanShop.dbo.ShopPurchase(UserUID,ProductNum)
-    SELECT UserName, ${body.item}
-    FROM RanUser.dbo.UserInfo
-    ${where}`
-    console.log("querys", querys)
-    const result = await sql.query(`${querys}`)
+   
     return handleSuccess({
       result
     })

@@ -4,7 +4,7 @@ export const sqlconnect = (db) => {
     // console.log('ENVVV:', env)
     return mysql.createConnection({
         user: 'sa',
-        password: '-=3PXepx-b055r4n=-',
+        password: 'passwordepxsql',
         server: '139.99.70.208', 
         database: db
     })
